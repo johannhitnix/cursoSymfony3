@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>{% block title %}LAYOUT!{% endblock %}</title>
+        {% block stylesheets %}{% endblock %}
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+        <style>
+            .container{
+                border: 1px solid black;
+                width: 85%;
+                height: 500px;
+                background: #eee;
+                
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            {% block container %}
+                Contenido por defecto
+            {% endblock %}
+        </div>
+
+            {% block javascripts %}{% endblock %}
+    </body>
+</html>

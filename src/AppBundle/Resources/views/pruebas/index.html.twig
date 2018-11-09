@@ -1,0 +1,47 @@
+{% extends "layout.html.twig" %}
+
+{% block container %}
+    {{parent()}}<br>
+    {{texto}}
+
+    <hr/>
+    {{frutas.manzana}}
+    {% if frutas.manzana ends with 'n' %}
+        {{frutas.pera}}
+    {% endif %}
+    
+    <hr/>    
+    {% set variable = "hi twig" %}
+    {{variable}}    
+
+    <hr/>
+    {% if productos|length > 0 %}
+        <ul>
+            {% for producto in productos %}
+                <li>{{producto.producto}} - {{producto.precio}}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}    
+
+    <hr/>
+    {% set fecha = date("-2 days", "America/Bogota") %}
+    <pre>
+        {{ dump(fecha) }}
+    </pre>
+    
+    <hr/>
+    {# PARCHE DE OTRA VISTA #}
+    {{ include('AppBundle:pruebas:parche.html.twig')}}<br>
+
+    {# RANDOM #}
+    {{random(1000)}}
+
+    <hr/>
+    {{random(["foo-fighters", "muse", "audioslave", "velvet revolver", "metallica"])}}
+
+    <hr/>
+    {% for i in range(11,78,3)%}
+        {{i}}<br>
+    {% endfor %}
+
+{% endblock %}
