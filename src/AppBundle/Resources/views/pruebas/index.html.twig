@@ -1,7 +1,7 @@
 {% extends "layout.html.twig" %}
 
-{% block container %}
-    {{parent()}}<br>
+{% block container %}    
+    {{parent() | title}}<br>
     {{texto}}
 
     <hr/>
@@ -37,11 +37,22 @@
     {{random(1000)}}
 
     <hr/>
-    {{random(["foo-fighters", "muse", "audioslave", "velvet revolver", "metallica"])}}
+    {{random(["foo-fighters", "muse", "audioslave", "velvet revolver", "metallica"])|title}}
 
     <hr/>
     {% for i in range(11,78,3)%}
-        {{i}}<br>
+        {{ i }}
     {% endfor %}
 
+    <hr/>
+    {{ generateTable(productos) | raw }}
+
+    <hr/>    
+    {% if santos|length %}
+        {{ generateTable(santos) | raw}}
+    {% endif %}
+
+    <hr>
+    {{ "quiero que seas una cadena de texto" | addText(7) }}
+    
 {% endblock %}
