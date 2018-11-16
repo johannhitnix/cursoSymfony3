@@ -110,4 +110,3 @@ class Producto
         return $this->price;
     }
 }
-

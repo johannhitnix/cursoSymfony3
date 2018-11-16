@@ -5,6 +5,7 @@ namespace AppBundle\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Entity\Curso;
 
 class PruebasController extends Controller
 {
@@ -37,6 +38,99 @@ class PruebasController extends Controller
             'frutas' => $frutas,
             'santos' => $santos
         ]);    
+    }
+
+    public function createAction(){
+        $curso = new Curso();
+        $curso->setTitulo("FullStack Developer");
+        $curso->setDescripcion("Es un curso completo de FullStack Developer");
+        $curso->setPrecio(30000);
+
+        $em = $this->getDoctrine()->getManager();
+        // enviar datos al ORM
+        $em->persist($curso);
+        // volcar los datos a la DB
+        $flush = $em->flush();
+
+        // si el $flush esta vacio significa que si se hizo la insercion
+        if(!$flush){
+            echo "el curso se ha creado correctamente";
+        } else{
+            echo "el curso no se pudo crear";
+        }
+
+        die();
+    }
+
+    public function readAction(){
+        $em = $this->getDoctrine()->getManager();
+        $cursos_repo = $em->getRepository("AppBundle:Curso");
+        $cursos = $cursos_repo->findAll();
+
+        foreach($cursos as $curso){
+            echo $curso->getTitulo() . "<br>";
+            echo $curso->getDescripcion() . "<br>";
+            echo $curso->getPrecio() . "<br><hr/>";
+        }
+
+        die();
+    }
+
+    public function updateAction($id, $titulo, $descripcion, $precio){
+        $em = $this->getDoctrine()->getManager();
+        $cursos_repo = $em->getRepository("AppBundle:Curso");
+
+        $curso = $cursos_repo->find($id);
+        $curso->setTitulo($titulo);
+        $curso->setDescripcion($descripcion);
+        $curso->setPrecio($precio);
+
+        $em->persist($curso);
+        $flush = $em->flush();
+
+        if(!$flush){
+            echo "el curso se ha actualizado correctamente";
+        } else{
+            echo "el curso NO SE HA ACTUALIZADO";
+        }
+
+        die();
+    }
+
+    public function deleteAction($id){
+        $em = $this->getDoctrine()->getManager();
+        $cursos_repo = $em->getRepository("AppBundle:Curso");
+
+        $curso = $cursos_repo->find($id);
+        $em->remove($curso);
+        $flush = $em->flush();
+
+        if(!$flush){
+            echo "curso borrado correctamente";
+        } else{
+            echo "no se ha podido eliminar el curso";
+        }
+
+        die();
+    }
+
+    public function nativeSqlAction(){
+        $em = $this->getDoctrine()->getManager();
+        $db = $em->getConnection();
+
+        $query = "SELECT * FROM cursos";
+        $stmt = $db->prepare($query);
+        $params = array();
+        $stmt->execute($params);
+
+
+        $cursos = $stmt->fetchAll();
+
+        foreach($cursos as $curso){
+            echo $curso["titulo"] . "<br>";
+        }
+
+        die();
     }
     
 }

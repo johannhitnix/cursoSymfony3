@@ -226,4 +226,3 @@ class Usuario
         return $this->alternative;
     }
 }
-
