@@ -9,3 +9,8 @@ rutas_bundle:
 app:
     resource: "@AppBundle/Controller/"
     type:     annotation
+
+blog:
+    resource: "@BlogBundle/Resources/config/routing.yml"
+    prefix:   /
+
