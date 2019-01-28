@@ -1,0 +1,9 @@
+{% extends 'BlogBundle::layout.html.twig' %}
+
+{% block content %}
+    <div class="col-sm-6">
+        <h2>Crear Entrada</h2>        
+        {{ form_start(form, {'enctype' : 'multipart/form-data'}) }}
+        {{ form_end(form)}}
+    </div>
+{% endblock %}

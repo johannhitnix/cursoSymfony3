@@ -1,0 +1,25 @@
+{% extends 'BlogBundle::layout.html.twig' %}
+
+{% block menu %}    
+    {% include "BlogBundle:Category:menu.categories.html.twig" with {'categories': categories} %}
+{% endblock %}
+
+{% block content %}    
+    {% for message in app.session.flashbag().get('status') %}
+        <div class="alert alert-success">{{ message }}</div>
+    {% endfor %}
+
+    {% for entry in entries %}
+        <div class="col-lg-11">
+            <p><img width="100px" src="{{ asset("uploads/"~entry.image)}}"/></p>
+            <p><strong>{{entry.title}}</strong></p>
+            <p>categoria: {{entry.category.name}}</p>
+            <p>tags:
+                {% for et in entry.entryTag %}
+                    {{et.tag.name}}
+                {% endfor %}
+            </p>
+            <hr/>
+        </div>
+    {% endfor %}
+{% endblock %}

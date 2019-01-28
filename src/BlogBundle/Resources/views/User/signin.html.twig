@@ -1,0 +1,25 @@
+{% extends 'BlogBundle::layout.html.twig' %}
+{% block content %}
+
+    
+    <br>    
+    <div class="col-lg-4">
+        <h2>Sign in User</h2>
+        <hr/>
+        {% for message in app.session.flashbag().get('status') %}
+            {% if app.session.flashbag().get('tipo') != null %}                
+                <div class="alert alert-primary">{{ message }}</div>            
+            {% else %}
+                <div class="alert alert-danger">{{ message }}</div>                                                
+            {% endif %}            
+        {% endfor %}
+        
+
+        {{form_start(form, {'action':'', 'method':'POST'})}}
+        {{form_end(form)}}
+
+    </div>
+
+    <div class="clearfix"></div>
+    <br>
+{% endblock %}

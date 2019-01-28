@@ -1,0 +1,41 @@
+{% extends 'BlogBundle::layout.html.twig' %}
+{% block content %}
+    {# app es un objeto al que se puede acceder al usuario identificado #}    
+    {# {% if app.user != null %}
+        {{dump(app.user)}} <br>
+    {% else %}
+        <h3>los datos no son validos por favor verifique</h3>
+    {% endif %}                      #}
+
+    {% if is_granted('ROLE_USER') %}
+        <strong>
+            usuario comun
+        </strong>
+    {% endif %}
+
+    {% if is_granted('ROLE_ADMIN') %}
+        <strong>
+            usuario ADMINISTRADOR
+        </strong>
+    {% endif %}    
+    
+    <br>    
+    <div class="col-lg-4">
+        <h2>Log In</h2>
+        <hr/>
+        <form action="{{path("login_check")}}" method="post">
+            <label><strong>Email:</strong></label>
+            <input type="email" id="username" name="_username" value="{{ last_username }}" class="form-control">
+            <label><strong>Password:</strong></label>
+            <input type="password" id="password" name="_password" class="form-control">
+            <br>
+            <input type="submit" value="Entrar" class="btn btn-primary">
+            {# con este hidden se modifica la redireccion que se hace despues del login #}
+            <input type="hidden" name="_target_path" value="/login">
+
+        </form>
+    </div>
+
+    <div class="clearfix"></div>
+    <br>
+{% endblock %}

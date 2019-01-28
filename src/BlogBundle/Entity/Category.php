@@ -1,7 +1,7 @@
 <?php
 
 namespace BlogBundle\Entity;
-
+use Doctrine\Common\Collections\ArrayCollection;
 /**
  * Category
  */
@@ -28,6 +28,9 @@ class Category
         $this->entry = new ArrayCollection();
     }
 
+    public function __toString(){
+        return $this->name;
+    }
 
     /**
      * Get id
